@@ -1,0 +1,2654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>MedRemind - Smart Medicine Reminder & Health System</title>
+  <meta name="description" content="Smart medicine reminder, dosage schedule, and emergency medical contact system. Installable on Android, iPhone, and desktop.">
+  <meta name="theme-color" content="#2563EB">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MedRemind">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="style.css">
+  <style>
+/* INLINED STYLES FOR NATIVE ANDROID APK & PWA */
+/* ==========================================================================
+   MEDREMIND DESIGN SYSTEM & MOBILE PWA STYLESHEET
+   ========================================================================== */
+
+:root {
+  --primary: #2563EB;
+  --primary-dark: #1D4ED8;
+  --primary-light: #EFF6FF;
+  --primary-gradient: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  
+  --success: #10B981;
+  --success-dark: #059669;
+  --success-light: #ECFDF5;
+  
+  --danger: #EF4444;
+  --danger-light: #FEF2F2;
+  --danger-gradient: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  
+  --warning: #F59E0B;
+  --warning-light: #FFFBEB;
+  
+  --dark: #0F172A;
+  --slate: #334155;
+  --muted: #64748B;
+  --border: #E2E8F0;
+  --card-bg: #FFFFFF;
+  --bg: #F8FAFC;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 25px -5px rgba(37, 99, 235, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-alarm: 0 20px 50px rgba(239, 68, 68, 0.35);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Reset & Mobile Optimization */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  background-color: #0F172A;
+  height: 100%;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--dark);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+/* App Shell (Constrained for mobile app feel on desktop, full width on phones) */
+.app-shell {
+  width: 100%;
+  max-width: 640px;
+  min-height: 100vh;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.04);
+  padding-bottom: 90px; /* Space for bottom nav */
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.app-header {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px 18px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: var(--primary-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+.brand-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--dark);
+  letter-spacing: -0.02em;
+}
+
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--success-dark);
+  background: var(--success-light);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.live-pill .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--success);
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--slate);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-icon:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+.btn-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Greeting Card */
+.greeting-banner {
+  background: var(--primary-gradient);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-lg);
+}
+
+.subgreeting {
+  font-size: 0.82rem;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.patient-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.patient-row h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.edit-link {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 0.9rem;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.edit-link:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.clock-badge {
+  text-align: right;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#live-clock {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+#live-date {
+  display: block;
+  font-size: 0.72rem;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   INSTALL PWA BANNER
+   ========================================================================== */
+
+.install-banner {
+  margin: 16px 20px 0 20px;
+  background: #1E293B;
+  color: white;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slide-down 0.3s ease;
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.install-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.install-icon {
+  font-size: 1.8rem;
+}
+
+.install-content strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.install-content p {
+  font-size: 0.8rem;
+  color: #94A3B8;
+}
+
+.install-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   MAIN CONTENT & TABS
+   ========================================================================== */
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.tab-pane {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section Cards */
+.section-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.section-subtitle {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.section-header-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.badge-danger {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--danger);
+  background: var(--danger-light);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.subtext {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Quick Dials */
+.quick-dial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.quick-dial-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.quick-dial-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.quick-dial-btn:active {
+  transform: scale(0.96);
+}
+
+.dial-ambulance { border-color: rgba(239, 68, 68, 0.3); background: var(--danger-light); }
+.dial-doctor { border-color: rgba(37, 99, 235, 0.3); background: var(--primary-light); }
+.dial-pharmacy { border-color: rgba(16, 185, 129, 0.3); background: var(--success-light); }
+
+.dial-emoji {
+  font-size: 1.6rem;
+}
+
+.dial-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.dial-action {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Today's Stats Row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 10px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-num {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.stat-total .stat-num { color: var(--primary); }
+.stat-taken .stat-num { color: var(--success); }
+.stat-pending .stat-num { color: var(--warning); }
+
+/* ==========================================================================
+   FEED & CARDS
+   ========================================================================== */
+
+.medicines-feed, .contacts-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Medicine Card */
+.medicine-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.medicine-card:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+.medicine-card.taken {
+  background: #F8FAF9;
+  border-color: rgba(16, 185, 129, 0.3);
+  opacity: 0.85;
+}
+
+.med-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.med-time-pill {
+  min-width: 72px;
+  padding: 6px 10px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.medicine-card.taken .med-time-pill {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.med-details h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+
+.med-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.dosage-tag {
+  background: #F1F5F9;
+  color: var(--slate);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.med-notes {
+  font-size: 0.76rem;
+  color: #64748B;
+  margin-top: 4px;
+}
+
+/* Toggle Checkbox / Taken Button */
+.take-check-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #CBD5E1;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  color: transparent;
+}
+
+.take-check-btn:hover {
+  border-color: var(--success);
+  transform: scale(1.08);
+}
+
+.take-check-btn.checked {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.take-check-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 3;
+}
+
+/* Switch & Delete in All Meds */
+.med-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-delete {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.btn-delete:hover {
+  color: var(--danger);
+  background: var(--danger-light);
+}
+
+/* Search Box */
+.search-box {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  outline: none;
+  background: var(--card-bg);
+  transition: var(--transition);
+}
+
+.search-box input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+}
+
+/* Contact Filter Chips */
+.contact-filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+  scrollbar-width: none;
+}
+
+.contact-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--slate);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.filter-chip.active, .filter-chip:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Contact Card */
+.contact-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.contact-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.contact-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.contact-details h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.contact-type-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.contact-phone-sub {
+  font-size: 0.82rem;
+  color: var(--slate);
+  font-weight: 500;
+}
+
+.contact-address {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.call-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: var(--success);
+  color: white;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: var(--transition);
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
+}
+
+.call-btn:hover {
+  background: var(--success-dark);
+  transform: translateY(-1px);
+}
+
+.call-btn:active {
+  transform: scale(0.96);
+}
+
+.btn-edit-contact,
+.btn-delete-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 11px;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-edit-contact {
+  background: #F1F5F9;
+  color: #334155;
+  border: 1px solid #CBD5E1;
+}
+
+.btn-edit-contact:hover {
+  background: #EEF2FF;
+  color: var(--primary);
+  border-color: #A5B4FC;
+  transform: translateY(-1px);
+}
+
+.btn-delete-contact {
+  background: #FEF2F2;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+}
+
+.btn-delete-contact:hover {
+  background: #FEE2E2;
+  color: #B91C1C;
+  border-color: #F87171;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   SPOTLIGHT & QR CODE (PHONE CONNECT)
+   ========================================================================== */
+
+.spotlight-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  border: 2px solid #DBEAFE;
+}
+
+.spotlight-badge {
+  display: inline-block;
+  background: #DBEAFE;
+  color: var(--primary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 10px;
+}
+
+.spotlight-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+
+.spotlight-desc {
+  font-size: 0.88rem;
+  color: var(--slate);
+  margin-bottom: 18px;
+}
+
+.qr-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+.qr-box {
+  width: 140px;
+  height: 140px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  flex-shrink: 0;
+}
+
+.qr-box svg {
+  width: 100%;
+  height: 100%;
+}
+
+.qr-placeholder {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.qr-info {
+  flex: 1;
+}
+
+.qr-info label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.url-copy-box {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.url-copy-box input {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #F1F5F9;
+  color: var(--dark);
+}
+
+.qr-hint {
+  font-size: 0.76rem;
+  color: #64748B;
+}
+
+.install-guide-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.guide-box {
+  background: #F1F5F9;
+  border-radius: var(--radius-md);
+  padding: 14px;
+}
+
+.guide-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.guide-box ol {
+  font-size: 0.78rem;
+  color: var(--slate);
+  padding-left: 18px;
+}
+
+.guide-box li {
+  margin-bottom: 4px;
+}
+
+.settings-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-action-row:last-child {
+  border-bottom: none;
+}
+
+.cloud-steps {
+  background: #F8FAFC;
+  border-radius: var(--radius-md);
+  padding: 14px;
+  font-size: 0.82rem;
+  color: var(--slate);
+  margin-top: 10px;
+}
+
+.cloud-steps ul {
+  padding-left: 20px;
+  margin-top: 8px;
+}
+
+.cloud-steps li {
+  margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   BOTTOM NAVIGATION BAR
+   ========================================================================== */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 640px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 8px 12px max(8px, env(safe-area-inset-bottom)) 12px;
+  z-index: 100;
+}
+
+.nav-item {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px 0;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.nav-item svg {
+  width: 22px;
+  height: 22px;
+  transition: var(--transition);
+}
+
+.nav-item span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.nav-item.active {
+  color: var(--primary);
+}
+
+.nav-item.active svg {
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   BUTTONS & FORMS
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  color: white;
+  padding: 10px 18px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-secondary {
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  padding: 10px 16px;
+}
+
+.btn-secondary:hover {
+  background: #DBEAFE;
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-text {
+  background: transparent;
+  color: #94A3B8;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  font-size: 1rem;
+  padding: 14px 22px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--slate);
+  margin-bottom: 6px;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  background: white;
+  color: var(--dark);
+}
+
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--slate);
+}
+
+.checkbox-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+.input-with-btn {
+  display: flex;
+  gap: 8px;
+}
+
+.input-with-btn input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   MODALS
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .modal-overlay {
+    align-items: center;
+  }
+}
+
+.modal-card {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 24px 24px 0 0;
+  padding: 24px 22px;
+  box-shadow: var(--shadow-lg);
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .modal-card {
+    border-radius: var(--radius-lg);
+  }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.modal-header h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+.modal-close-btn {
+  background: var(--bg);
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.modal-actions .btn {
+  flex: 1;
+}
+
+/* ==========================================================================
+   FULLSCREEN MEDICINE ALARM MODAL
+   ========================================================================== */
+
+.alarm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 20px;
+  animation: pulse-alarm-bg 1.5s infinite;
+}
+
+@keyframes pulse-alarm-bg {
+  0% { background: rgba(15, 23, 42, 0.94); }
+  50% { background: rgba(30, 15, 20, 0.94); }
+  100% { background: rgba(15, 23, 42, 0.94); }
+}
+
+.alarm-dialog {
+  background: white;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 28px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-alarm);
+  border: 3px solid var(--danger);
+  animation: alarm-shake 0.8s infinite;
+}
+
+@keyframes alarm-shake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(2px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+
+.alarm-bell-anim {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+  animation: bell-bounce 0.6s infinite alternate ease-in-out;
+}
+
+@keyframes bell-bounce {
+  from { transform: scale(1) rotate(-15deg); }
+  to { transform: scale(1.15) rotate(15deg); }
+}
+
+.alarm-kicker {
+  display: inline-block;
+  background: var(--danger-light);
+  color: var(--danger);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.alarm-dialog h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+
+.alarm-dosage-pill {
+  display: inline-block;
+  background: #F1F5F9;
+  color: var(--slate);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.alarm-notes {
+  font-size: 0.9rem;
+  color: var(--slate);
+  margin-bottom: 14px;
+  min-height: 20px;
+}
+
+.alarm-time-badge {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 24px;
+}
+
+.alarm-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATIONS
+   ========================================================================== */
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  width: 90%;
+  max-width: 400px;
+}
+
+.toast {
+  background: var(--dark);
+  color: white;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toast-in 0.25s ease, toast-out 0.25s ease 2.75s forwards;
+}
+
+.toast.success { background: #065F46; }
+.toast.danger { background: #991B1B; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-16px); }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 36px 20px;
+  color: var(--muted);
+}
+
+.empty-state-icon {
+  font-size: 2.8rem;
+  margin-bottom: 8px;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* ==========================================================================
+   BRAND LOGO & USER PROFILE HEADER
+   ========================================================================== */
+
+.brand-logo-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.brand-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-version-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.22);
+  padding: 2px 7px;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+}
+
+.btn-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  padding: 5px 12px 5px 6px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.82rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-user-profile:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.user-avatar-initial {
+  width: 26px;
+  height: 26px;
+  background: #FFFFFF;
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-sm);
+}
+
+.user-btn-name {
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   AUTHENTICATION MODAL & DIALOG
+   ========================================================================== */
+
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top center, #1E293B 0%, #0F172A 100%);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow-y: auto;
+  min-height: 100vh;
+  animation: auth-fade-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes auth-fade-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.auth-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.3), 0 0 0 1px rgba(226, 232, 240, 0.8);
+  width: 100%;
+  max-width: 440px;
+  overflow: hidden;
+  position: relative;
+}
+
+.auth-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 50%;
+  color: #FFFFFF;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+.auth-close-btn:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.auth-header {
+  background: linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #3B82F6 100%);
+  padding: 28px 24px 20px;
+  text-align: center;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.auth-logo-badge {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 12px;
+  border-radius: 20px;
+  background: #FFFFFF;
+  padding: 4px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 0 4px rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+
+.auth-logo-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.auth-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.auth-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.auth-tabs {
+  display: flex;
+  background: #F1F5F9;
+  padding: 5px;
+  margin: 16px 20px 0;
+  border-radius: 14px;
+  gap: 6px;
+}
+
+.auth-tab-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.auth-tab-btn.active {
+  background: #FFFFFF;
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.auth-content {
+  padding: 20px 24px 24px;
+}
+
+.auth-pane {
+  display: none;
+}
+
+.auth-pane.active {
+  display: block;
+  animation: tab-switch 0.2s ease;
+}
+
+@keyframes tab-switch {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-alert {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: none;
+}
+
+.auth-alert.error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  color: #DC2626;
+}
+
+.auth-alert.success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ECFDF5;
+  border: 1px solid #6EE7B7;
+  color: #059669;
+}
+
+.input-with-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-toggle input {
+  padding-right: 42px;
+}
+
+.pwd-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-auth-submit {
+  width: 100%;
+  padding: 13px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 12px;
+  background: var(--primary-gradient);
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  transition: var(--transition);
+  margin-top: 8px;
+}
+
+.btn-auth-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 18px 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border);
+}
+
+.auth-divider span {
+  padding: 0 10px;
+}
+
+.btn-demo-quick {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #F8FAFC;
+  border: 1.5px dashed #94A3B8;
+  color: #334155;
+  padding: 11px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-demo-quick:hover {
+  background: #EEF2FF;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.auth-guest-row {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.auth-guest-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: var(--transition);
+}
+
+.auth-guest-btn:hover {
+  color: var(--dark);
+}
+
+/* Account Card in Settings */
+.account-profile-card {
+  background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 100%);
+  border: 1px solid #E0E7FF;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.account-profile-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.account-profile-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: var(--primary-gradient);
+  color: #FFFFFF;
+  font-size: 1.3rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  flex-shrink: 0;
+}
+
+.account-profile-details h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+
+.account-profile-details p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.account-profile-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   ALARM RINGTONE SELECTOR & SOUND STYLES
+   ========================================================================== */
+
+.ringtone-settings-box {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 14px;
+}
+
+.ringtone-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge-ringtone {
+  background: #DCFCE7;
+  color: #15803D;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+  border: 1px solid #86EFAC;
+}
+
+.ringtone-action-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ringtone-modal-card {
+  max-width: 500px;
+  width: 100%;
+}
+
+.ringtone-presets-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 340px;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-bottom: 16px;
+}
+
+.ringtone-preset-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.ringtone-preset-item:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+.ringtone-preset-item.selected {
+  background: #EFF6FF;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.ringtone-preset-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ringtone-radio-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.ringtone-preset-item.selected .ringtone-radio-dot {
+  border-color: var(--primary);
+}
+
+.ringtone-radio-dot::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: var(--transition);
+}
+
+.ringtone-preset-item.selected .ringtone-radio-dot::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ringtone-preset-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ringtone-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ringtone-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.ringtone-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #E2E8F0;
+  color: #475569;
+}
+
+.ringtone-tag.recommended {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.ringtone-desc {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.btn-play-ringtone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #334155;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.btn-play-ringtone:hover {
+  background: #F1F5F9;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-play-ringtone.playing {
+  background: #FEF2F2;
+  border-color: #EF4444;
+  color: #DC2626;
+  animation: pulse-ring 1s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.custom-audio-box {
+  background: #F8FAFC;
+  border: 1.5px dashed #CBD5E1;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.custom-audio-info {
+  margin-bottom: 8px;
+}
+
+.custom-audio-info strong {
+  font-size: 0.88rem;
+  color: var(--dark);
+  display: block;
+}
+
+.custom-filename-tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #1D4ED8;
+  background: #EFF6FF;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid #BFDBFE;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.delete-confirm-card {
+  padding: 24px 20px;
+}
+
+.delete-icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #FEE2E2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin: 0 auto 10px;
+}
+
+
+</style>
+  </head>
+<body>
+  <!-- App Container -->
+  <!-- FULLSCREEN AUTHENTICATION PAGE (LOGIN / REGISTER FIRST) -->
+    <div id="auth-modal" class="auth-overlay">
+      <div class="auth-card">
+        
+        <div class="auth-header">
+          <div class="auth-logo-badge">
+            <img src="logo.png" alt="MedRemind Logo">
+          </div>
+          <h2 class="auth-title">MedRemind</h2>
+          <p class="auth-subtitle">Smart Medicine Reminder & Health Assistant</p>
+        </div>
+
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="tab-btn-login" data-auth-tab="login-pane">Sign In</button>
+          <button class="auth-tab-btn" id="tab-btn-register" data-auth-tab="register-pane">Create Account</button>
+        </div>
+
+        <div class="auth-content">
+          <div id="auth-alert" class="auth-alert"></div>
+
+          <!-- PANE 1: SIGN IN -->
+          <div id="login-pane" class="auth-pane active">
+            <form id="form-login">
+              <div class="form-group">
+                <label for="login-username">Username or Email</label>
+                <input type="text" id="login-username" placeholder="e.g. yogesh or yogesh@example.com" required autocomplete="username">
+              </div>
+              <div class="form-group">
+                <label for="login-password">Password</label>
+                <div class="input-with-toggle">
+                  <input type="password" id="login-password" placeholder="Enter your password" required autocomplete="current-password">
+                  <button type="button" class="pwd-toggle-btn" data-target="login-password" title="Show password">👁️</button>
+                </div>
+              </div>
+              <button type="submit" class="btn-auth-submit" id="btn-login-submit">Sign In to MedRemind</button>
+            </form>
+
+            <div class="auth-divider">
+              <span>or quick access</span>
+            </div>
+
+            <button type="button" class="btn-demo-quick" id="btn-demo-login">
+              <span>⚡</span>
+              <span>One-Click Demo Login (Yogesh)</span>
+            </button>
+          </div>
+
+          <!-- PANE 2: CREATE ACCOUNT -->
+          <div id="register-pane" class="auth-pane">
+            <form id="form-register">
+              <div class="form-group">
+                <label for="reg-name">Full Name</label>
+                <input type="text" id="reg-name" placeholder="e.g. Yogesh Kumar" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="reg-username">Username</label>
+                <input type="text" id="reg-username" placeholder="e.g. yogesh2026" required autocomplete="username">
+              </div>
+              <div class="form-group">
+                <label for="reg-email">Email Address</label>
+                <input type="email" id="reg-email" placeholder="e.g. yogesh@example.com" required autocomplete="email">
+              </div>
+              <div class="form-group">
+                <label for="reg-password">Password</label>
+                <div class="input-with-toggle">
+                  <input type="password" id="reg-password" placeholder="Minimum 6 characters" minlength="6" required autocomplete="new-password">
+                  <button type="button" class="pwd-toggle-btn" data-target="reg-password" title="Show password">👁️</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="reg-confirm-password">Confirm Password</label>
+                <div class="input-with-toggle">
+                  <input type="password" id="reg-confirm-password" placeholder="Re-enter password" minlength="6" required autocomplete="new-password">
+                  <button type="button" class="pwd-toggle-btn" data-target="reg-confirm-password" title="Show password">👁️</button>
+                </div>
+              </div>
+              <button type="submit" class="btn-auth-submit" id="btn-register-submit">Create Free Account</button>
+            </form>
+
+            <div class="auth-guest-row">
+              <button type="button" class="auth-guest-btn" id="btn-switch-to-login">Already have an account? Sign In →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- App Container (Main Shell) -->
+    <div id="app" class="app-shell" style="display: none;">
+    
+    <!-- Top App Header -->
+    <header class="app-header">
+      <div class="header-top">
+        <div class="brand">
+          <div class="brand-logo-wrap">
+            <img src="logo.png" alt="MedRemind Logo" class="brand-logo-img">
+          </div>
+          <div>
+            <div class="brand-title-row">
+              <h1 class="brand-title">MedRemind</h1>
+              <span class="app-version-tag">v2.1</span>
+            </div>
+            <span class="live-pill" id="live-connection-badge">
+              <span class="dot"></span> Online & Active
+            </span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button id="header-user-btn" class="btn-user-profile" title="Account / Sign In" aria-label="Account">
+            <span class="user-avatar-initial" id="header-avatar-initial">Y</span>
+            <span class="user-btn-name" id="header-user-name">Sign In</span>
+          </button>
+          <button id="header-settings-btn" class="btn-icon" title="Settings & Alarm Tone" aria-label="Settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+          <button id="header-sound-btn" class="btn-icon" title="Test Chime Sound" aria-label="Test Sound">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Greeting & Clock Card -->
+      <div class="greeting-banner">
+        <div class="greeting-text">
+          <span class="subgreeting">Welcome back,</span>
+          <div class="patient-row">
+            <h2 id="patient-name-display">Patient</h2>
+            <button id="edit-patient-btn" class="edit-link" title="Edit Name">✎</button>
+          </div>
+        </div>
+        <div class="clock-badge">
+          <span id="live-clock">--:-- --</span>
+          <span id="live-date">Today</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Install PWA Banner (Appears if installable) -->
+    <div id="pwa-install-banner" class="install-banner" style="display: none;">
+      <div class="install-content">
+        <div class="install-icon">📲</div>
+        <div>
+          <strong>Download MedRemind on Phone</strong>
+          <p>Install this app on your phone home screen for instant alarms & full offline access.</p>
+        </div>
+      </div>
+      <div class="install-actions">
+        <button id="pwa-install-btn" class="btn btn-primary btn-sm">Install App</button>
+        <button id="pwa-dismiss-btn" class="btn-text">Later</button>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- TAB 1: TODAY'S SCHEDULE -->
+      <section id="tab-schedule" class="tab-pane active">
+        
+        <!-- Emergency Quick Dials Bar -->
+        <div class="section-card emergency-bar-card">
+          <div class="section-header-compact">
+            <span class="badge-danger">🚨 1-Tap Emergency</span>
+            <span class="subtext">Instant call button</span>
+          </div>
+          <div class="quick-dial-grid" id="quick-dials-container">
+            <button class="quick-dial-btn dial-ambulance" data-type="Ambulance">
+              <span class="dial-emoji">🚑</span>
+              <span class="dial-label">Ambulance</span>
+              <span class="dial-action">Call 102 / 108</span>
+            </button>
+            <button class="quick-dial-btn dial-doctor" data-type="Doctor">
+              <span class="dial-emoji">🩺</span>
+              <span class="dial-label">My Doctor</span>
+              <span class="dial-action">Call Doctor</span>
+            </button>
+            <button class="quick-dial-btn dial-pharmacy" data-type="Nearby Medicine Store">
+              <span class="dial-emoji">💊</span>
+              <span class="dial-label">Pharmacy</span>
+              <span class="dial-action">Medicine Store</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Today's Stats Cards -->
+        <div class="stats-row">
+          <div class="stat-card stat-total">
+            <span class="stat-num" id="stat-today-total">0</span>
+            <span class="stat-label">Scheduled Today</span>
+          </div>
+          <div class="stat-card stat-taken">
+            <span class="stat-num" id="stat-today-taken">0</span>
+            <span class="stat-label">Taken ✔️</span>
+          </div>
+          <div class="stat-card stat-pending">
+            <span class="stat-num" id="stat-today-pending">0</span>
+            <span class="stat-label">Pending ⏳</span>
+          </div>
+        </div>
+
+        <!-- Today's Timeline Section -->
+        <div class="section-header">
+          <div>
+            <h3>Today's Medication Timeline</h3>
+            <p class="section-subtitle">Doses scheduled for today</p>
+          </div>
+          <button id="quick-add-med-btn" class="btn btn-secondary btn-sm">+ Add Medicine</button>
+        </div>
+
+        <div id="today-medicines-list" class="medicines-feed">
+          <div class="loading-spinner">Loading schedule...</div>
+        </div>
+      </section>
+
+      <!-- TAB 2: ALL MEDICINES -->
+      <section id="tab-medicines" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h3>All Medications</h3>
+            <p class="section-subtitle">Manage dosages, daily repeats & alarms</p>
+          </div>
+          <button id="open-add-med-modal" class="btn btn-primary btn-sm">+ Add Medicine</button>
+        </div>
+
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="med-search-input" placeholder="Search medicines by name or dosage...">
+        </div>
+
+        <div id="all-medicines-list" class="medicines-feed">
+          <div class="loading-spinner">Loading medicines...</div>
+        </div>
+      </section>
+
+      <!-- TAB 3: EMERGENCY CONTACTS -->
+      <section id="tab-contacts" class="tab-pane">
+        <div class="section-header">
+          <div>
+            <h3>Emergency Contacts</h3>
+            <p class="section-subtitle">Doctors, ambulance & family support</p>
+          </div>
+          <button id="open-add-contact-modal" class="btn btn-primary btn-sm">+ Add Contact</button>
+        </div>
+
+        <div class="contact-filters">
+          <button class="filter-chip active" data-filter="all">All</button>
+          <button class="filter-chip" data-filter="Doctor">Doctor</button>
+          <button class="filter-chip" data-filter="Ambulance">Ambulance</button>
+          <button class="filter-chip" data-filter="Nearby Medicine Store">Pharmacy</button>
+          <button class="filter-chip" data-filter="Emergency Contact">Family / Other</button>
+        </div>
+
+        <div id="contacts-list" class="contacts-feed">
+          <div class="loading-spinner">Loading contacts...</div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar (Schedule, Medicines, Emergency) -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="tab-schedule">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span>Schedule</span>
+      </button>
+
+      <button class="nav-item" data-tab="tab-medicines">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.5 20.5 4 14a4.95 4.95 0 0 1 7-7l6.5 6.5a4.95 4.95 0 0 1-7 7z"></path>
+          <line x1="8.5" y1="8.5" x2="15.5" y2="15.5"></line>
+        </svg>
+        <span>Medicines</span>
+      </button>
+
+      <button class="nav-item" data-tab="tab-contacts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+        <span>Emergency</span>
+      </button>
+    </nav>
+
+    <!-- MODAL: ACCOUNT & SETTINGS (Replaces Connect Tab) -->
+    <div id="account-settings-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-card" style="max-width: 480px;">
+        <div class="modal-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: #EEF2FF; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">⚙️</div>
+            <div>
+              <h3 style="margin: 0; font-size: 1.2rem;">Account & Settings</h3>
+              <p class="subtext" style="margin: 0; font-size: 0.8rem;">Profile, Alarm Tones & Alerts</p>
+            </div>
+          </div>
+          <button class="modal-close-btn" data-close="account-settings-modal">&times;</button>
+        </div>
+
+        <!-- Active Account Card -->
+        <div class="account-profile-card" id="settings-account-card">
+          <div class="account-profile-left">
+            <div class="account-profile-avatar" id="settings-user-avatar">Y</div>
+            <div class="account-profile-details">
+              <h4 id="settings-account-name">Yogesh</h4>
+              <p id="settings-account-email">yogesh@medremind.com</p>
+            </div>
+          </div>
+          <div class="account-profile-actions">
+            <button id="btn-logout" class="btn btn-danger btn-sm" type="button">Log Out</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 12px;">
+          <label for="settings-patient-name">Patient Display Name</label>
+          <div class="input-with-btn">
+            <input type="text" id="settings-patient-name" placeholder="Patient Name">
+            <button id="save-patient-name-btn" class="btn btn-primary btn-sm" type="button">Save</button>
+          </div>
+        </div>
+
+        <!-- Alarm Ringtone & Sound -->
+        <div class="settings-action-row ringtone-settings-box" style="margin-top: 14px;">
+          <div style="flex: 1;">
+            <div class="ringtone-title-row">
+              <strong>🎵 Alarm Ringtone & Sound</strong>
+              <span class="badge-ringtone" id="active-ringtone-badge">Gentle Medical Chime</span>
+            </div>
+            <p class="subtext">6 recommended medical tones or upload your own</p>
+          </div>
+          <div class="ringtone-action-btns">
+            <button id="open-ringtone-modal-btn" class="btn btn-primary btn-sm" type="button">🎵 Change Ringtone</button>
+            <button id="test-alarm-btn" class="btn btn-secondary btn-sm" type="button" title="Quick Preview">▶️ Test</button>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="settings-action-row" style="margin-top: 14px;">
+          <div>
+            <strong>🔔 Reminders & Audio Alerts</strong>
+            <p class="subtext">Sound alarms when medications are due</p>
+          </div>
+          <button id="enable-notifications-btn" class="btn btn-secondary btn-sm" type="button">Enable</button>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 18px;">
+          <button type="button" class="btn btn-secondary" data-close="account-settings-modal">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULLSCREEN MEDICINE ALARM MODAL -->
+    <div id="alarm-modal" class="alarm-overlay" style="display: none;">
+      <div class="alarm-dialog">
+        <div class="alarm-bell-anim">🔔</div>
+        <span class="alarm-kicker">MEDICATION DUE NOW!</span>
+        <h2 id="alarm-med-name">Medicine Name</h2>
+        <div class="alarm-dosage-pill" id="alarm-med-dosage">Dosage</div>
+        <p class="alarm-notes" id="alarm-med-notes"></p>
+        <div class="alarm-time-badge" id="alarm-med-time">Time</div>
+
+        <div class="alarm-buttons">
+          <button id="alarm-take-btn" class="btn btn-success btn-lg">
+            ✔️ I Have Taken It
+          </button>
+          <button id="alarm-snooze-btn" class="btn btn-secondary btn-lg">
+            ⏰ Snooze 5 Min
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: ADD MEDICINE -->
+    <div id="add-med-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Add Medication</h3>
+          <button class="modal-close-btn" data-close="add-med-modal">&times;</button>
+        </div>
+        <form id="add-med-form">
+          <div class="form-group">
+            <label for="med-name">Medicine Name *</label>
+            <input type="text" id="med-name" placeholder="e.g. Paracetamol, Metformin" required>
+          </div>
+          <div class="form-group">
+            <label for="med-dosage">Dosage *</label>
+            <input type="text" id="med-dosage" placeholder="e.g. 500mg, 1 Tablet, 5ml" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="med-time">Reminder Time *</label>
+              <input type="time" id="med-time" required>
+            </div>
+            <div class="form-group">
+              <label for="med-start-date">Start Date</label>
+              <input type="date" id="med-start-date">
+            </div>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="med-daily" checked>
+            <label for="med-daily">Repeat every day</label>
+          </div>
+          <div class="form-group">
+            <label for="med-notes">Instructions / Notes (Optional)</label>
+            <input type="text" id="med-notes" placeholder="e.g. Take after meal with water">
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" data-close="add-med-modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Medicine</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: ADD CONTACT -->
+    <div id="add-contact-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Add Emergency Contact</h3>
+          <button class="modal-close-btn" data-close="add-contact-modal">&times;</button>
+        </div>
+        <form id="add-contact-form">
+          <div class="form-group">
+            <label for="contact-name">Full Name *</label>
+            <input type="text" id="contact-name" placeholder="e.g. Dr. Rajesh Sharma" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-phone">Phone Number *</label>
+            <input type="tel" id="contact-phone" placeholder="e.g. +91 98765 43210" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-type">Category *</label>
+            <select id="contact-type" required>
+              <option value="Doctor">Doctor 🩺</option>
+              <option value="Ambulance">Ambulance 🚑</option>
+              <option value="Nearby Medicine Store">Nearby Medicine Store 💊</option>
+              <option value="Emergency Contact">Emergency Contact / Family 👤</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contact-relation">Relationship / Speciality (Optional)</label>
+            <input type="text" id="contact-relation" placeholder="e.g. Cardiologist, Brother, Caretaker">
+          </div>
+          <div class="form-group">
+            <label for="contact-address">Hospital / Clinic Address (Optional)</label>
+            <input type="text" id="contact-address" placeholder="e.g. City Hospital, 2nd Floor">
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" data-close="add-contact-modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Contact</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: EDIT EMERGENCY CONTACT -->
+    <div id="edit-contact-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <h3>Edit Emergency Contact</h3>
+            <p class="subtext">Update phone number, doctor name, or details</p>
+          </div>
+          <button class="modal-close-btn" data-close="edit-contact-modal">&times;</button>
+        </div>
+        <form id="edit-contact-form">
+          <input type="hidden" id="edit-contact-id">
+          <div class="form-group">
+            <label for="edit-contact-name">Full Name / Doctor Name *</label>
+            <input type="text" id="edit-contact-name" placeholder="e.g. Dr. Rajesh Sharma" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-contact-phone">Phone Number *</label>
+            <input type="tel" id="edit-contact-phone" placeholder="e.g. +91 98765 43210" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-contact-type">Category *</label>
+            <select id="edit-contact-type" required>
+              <option value="Doctor">Doctor 🩺</option>
+              <option value="Ambulance">Ambulance 🚑</option>
+              <option value="Nearby Medicine Store">Nearby Medicine Store 💊</option>
+              <option value="Emergency Contact">Emergency Contact / Family 👤</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-contact-relation">Relationship / Speciality (Optional)</label>
+            <input type="text" id="edit-contact-relation" placeholder="e.g. Family Doctor, Cardiologist, Brother">
+          </div>
+          <div class="form-group">
+            <label for="edit-contact-address">Hospital / Clinic Address (Optional)</label>
+            <input type="text" id="edit-contact-address" placeholder="e.g. City Hospital, Room 204">
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" data-close="edit-contact-modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: DELETE CONTACT CONFIRMATION -->
+    <div id="delete-contact-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-card delete-confirm-card" style="max-width: 400px; text-align: center;">
+        <div class="delete-icon-circle">🗑️</div>
+        <h3 style="color: #991B1B; margin: 8px 0 6px;">Delete Contact?</h3>
+        <p class="subtext" style="font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">
+          Are you sure you want to remove <strong id="delete-contact-name-display" style="color: #0F172A;">this contact</strong>? You won't be able to dial them from 1-tap emergency until re-added.
+        </p>
+        <div class="modal-actions" style="justify-content: center; gap: 10px;">
+          <button type="button" class="btn btn-secondary" data-close="delete-contact-modal">Cancel</button>
+          <button type="button" id="confirm-delete-contact-btn" class="btn btn-danger">Yes, Delete Contact</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: ALARM RINGTONE SELECTOR -->
+    <div id="ringtone-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-card ringtone-modal-card">
+        <div class="modal-header">
+          <div>
+            <h3>🎵 Alarm Ringtone Settings</h3>
+            <p class="subtext">Select from recommended medical tones or upload your own</p>
+          </div>
+          <button class="modal-close-btn" data-close="ringtone-modal">&times;</button>
+        </div>
+
+        <div class="ringtone-presets-container" id="ringtone-presets-container">
+          <!-- Recommended presets will be rendered here -->
+        </div>
+
+        <!-- Custom Audio Upload Section -->
+        <div class="custom-audio-box">
+          <div class="custom-audio-info">
+            <strong>📁 Custom Ringtone (Phone / PC)</strong>
+            <p class="subtext">Upload any MP3, WAV, or OGG audio file</p>
+          </div>
+          <input type="file" id="custom-ringtone-file" accept="audio/*" style="display: none;">
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <button type="button" id="btn-pick-custom-audio" class="btn btn-secondary btn-sm">
+              📂 Browse File...
+            </button>
+            <button type="button" id="btn-test-custom-audio" class="btn btn-secondary btn-sm" style="display: none;">
+              ▶️ Play Custom
+            </button>
+            <span id="custom-audio-filename" class="custom-filename-tag" style="display: none;"></span>
+          </div>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 18px;">
+          <button type="button" class="btn btn-secondary" data-close="ringtone-modal">Close</button>
+          <button type="button" id="btn-save-ringtone-choice" class="btn btn-primary">Save as Active Ringtone</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
