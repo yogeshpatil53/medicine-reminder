@@ -1,8 +1,7 @@
 # 💊 MedRemind - Smart Medicine Reminder & Health Assistant
 
-[![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20Web%20PWA-2563EB.svg)](https://github.com)
-[![Status](https://img.shields.io/badge/Status-Active%20%26%20Ready-10B981.svg)](https://github.com)
-[![License](https://img.shields.io/badge/License-MIT-F59E0B.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20Web%20PWA-2563EB.svg)](https://github.com/yogeshpatil53/medicine-reminder)
+[![Status](https://img.shields.io/badge/Status-Active%20%26%20Ready-10B981.svg)](https://github.com/yogeshpatil53/medicine-reminder)
 
 MedRemind is a modern, responsive, and reliable medicine reminder application designed to help patients and caregivers manage medication schedules, sound alarms with custom or clinical ringtones, and quickly reach emergency contacts.
 
@@ -10,10 +9,9 @@ MedRemind is a modern, responsive, and reliable medicine reminder application de
 
 ## 📱 Download the Android App (APK)
 
-You can download and install the native Android APK directly on your mobile device:
+Anyone with an Android phone can download and install the app directly:
 
-- 📥 **[Download Latest APK](MedicineReminder.apk)** *(Direct Repository File)*
-- 🌟 Or check the **[GitHub Releases](https://github.com)** tab for version releases.
+👉 **[Direct APK Download Link (8.9 MB)](https://github.com/yogeshpatil53/medicine-reminder/raw/main/MedicineReminder.apk)**
 
 ### How to Install on Android:
 1. Download **`MedicineReminder.apk`** to your phone.
